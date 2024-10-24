@@ -1,0 +1,41 @@
+﻿.table-container {
+    background-color: rgba(173, 216, 230, 0.3); /* Light blue background around the table */
+    padding: 20px; /* Padding around the table */
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px;
+}
+
+/* Table with black border */
+.table {
+    font-size: 1.2rem; /* Larger font size for better readability */
+    text-align: left; /* Ensure the text aligns properly */
+    border: 2px solid black; /* Black border for the table */
+    border-collapse: collapse;
+}
+
+    .table th, .table td {
+        padding: 15px; /* Increase padding for better spacing */
+        border: 1px solid black; /* Black border between cells */
+    }
+
+    .table th {
+        font-weight: bold;
+    }
+
+    /* Alternate row background color */
+    .table tr:nth-child(even) {
+        background-color: rgba(240, 240, 240, 0.9); /* Slightly darker for alternate row shading */
+    }
+
+    /* Hover effect for individual cells */
+    .table td:hover {
+        background-color: goldenrod !important; /* Golden background for hovered cell */
+        font-size: 1.3rem; /* Increase font size when hovered */
+        transition: all 0.3s ease-in-out; /* Smooth transition for the changes */
+    }
+
+    /* Highlight the entire row when hovering over a cell */
+    .table tr:hover {
+        background-color: rgba(173, 216, 230, 0.7); /* Highlight row with a light blue shade */
+        transition: background-color 0.3s ease-in-out; /* Smooth transition */
+    }

@@ -1,0 +1,112 @@
+﻿@model StudentLibraryManagement.Models.ViewModels.RegisterViewModel
+
+<h2>Sign Up</h2>
+<form method="post" asp-action="Register" asp-controller="Account">
+    <hr />
+    <div class="col-md-8">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        @if (3 > 1) { Console.WriteLine("Admin called ..."); }
+        <!-- Role Selection -->
+        <div class="form-group row mt-3">
+            <label class="col-md-2" asp-for="RoleName"></label>
+            <div class="col-md-10">
+                <select asp-for="RoleName" asp-items="@StudentLibraryManagement.Utility.Helper.GetRolesForDropDown()" class="form-control" id="roleSelect">
+                </select>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Name, Email, Password, ConfirmPassword (Common for all roles) -->
+        <div class="form-group row mt-3">
+            <label class="col-md-2" asp-for="Name"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-md-2" asp-for="Email"></label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Password and ConfirmPassword -->
+        <div class="form-group row mt-3">
+            <label class="col-md-2" asp-for="Password"></label>
+            <div class="col-md-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label class="col-md-2" asp-for="ConfirmPassword"></label>
+            <div class="col-md-10">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+
+        @{
+            // Set default values if the properties are not specified
+            var defaultAge = Model.Age == 0 ? 18 : Model.Age;
+            var defaultGender = string.IsNullOrEmpty(Model.Gender) ? "Male" : Model.Gender; // Default to "Male" if empty
+            var defaultDepartment = string.IsNullOrEmpty(Model.Department) ? "General" : Model.Department; // Default to "General" if empty
+        }
+
+        <!-- Conditionally render student-specific fields if Role is Student -->
+        @if (Model.RoleName == "Student")
+        {
+            
+
+            @if(3>1){ Console.WriteLine("Student called ..."); }
+            <!-- Age -->
+            <div class="form-group row mt-3">
+                <label class="col-md-2">Age</label>
+                <div class="col-md-10">
+                    <input type="number" asp-for="Age" class="form-control"  />
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group row mt-3">
+                <label class="col-md-2">Gender</label>
+                <div class="col-md-10">
+                    <select asp-for="Gender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female" >Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group row mt-3">
+                <label class="col-md-2">Department</label>
+                <div class="col-md-10">
+                    <input type="text" asp-for="Department" class="form-control" value="@defaultDepartment" />
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <div class="form-group mt-3">
+        <div class="col-md-10 offset-md-2">
+            <input type="submit" value="Register" class="btn btn-success" />
+        </div>
+    </div>
+    <p class="col-md-10 offset-md-2">
+        <a asp-action="Login">Sign In</a>
+    </p>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Include custom JavaScript file -->
+    <script src="~/js/Register.js"></script>
+}

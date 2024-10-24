@@ -1,0 +1,90 @@
+﻿@model List<StudentLibraryManagement.Models.ViewModels.BooksViewModel>
+@inject Microsoft.AspNetCore.Identity.SignInManager<StudentLibraryManagement.Models.ApplicationUser> signInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<StudentLibraryManagement.Models.ApplicationUser> userManager
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Index.css" />
+}
+
+<div class="d-flex justify-content-between mt-3">
+    <h2>Books List</h2>
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            <a asp-controller="Books" asp-action="AddBook" class="btn btn-success">Add Book</a>
+            <a asp-controller="Books" asp-action="DownloadBooks" class="btn btn-info">Download Excel</a>
+            <a asp-controller="Books" asp-action="DownloadBooksPdf2" class="btn btn-danger">Download PDF</a>
+        </div>
+    }
+</div>
+
+
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Shelf</th>
+                <th>Borrower</th>
+                @if (User.IsInRole("Admin")){<th>Changes</th>}
+            </tr>
+
+            <!-- Search filter row -->
+            <tr>
+                <form method="get" asp-controller="Books" asp-action="Index">
+                <th></th>
+                <th>
+                    <input type="text" name="searchTitle" value="@ViewData["searchTitle"]" class="form-control" placeholder="Search Title" />
+                </th>
+                <th>
+                    <input type="text" name="searchAuthor" value="@ViewData["searchAuthor"]" class="form-control" placeholder="Search Author" />
+                </th>
+                <th>
+                    <input type="text" name="searchCategory" value="@ViewData["searchCategory"]" class="form-control" placeholder="Search Category" />
+                </th>
+                <th>
+                    <input type="text" name="searchShelf" value="@ViewData["searchShelf"]" class="form-control" placeholder="Search Shelf" />
+                </th>
+                <th>
+                    <input type="text" name="searchBorrower" value="@ViewData["searchBorrower"]" class="form-control" placeholder="Search Borrower" />
+                </th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <th>
+                        <button type="submit" class="btn btn-primary" hidden>Search</button>
+                    </th>
+                    }
+                    else
+                    {
+                    <button type="submit" class="btn btn-primary" hidden>Search</button>
+                    }
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.CategoryName</td>
+                    <td>@book.Shelf</td>
+                    <td>@book.StudentName</td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Books" asp-action="UpdateBook" asp-route-Id="@book.Id" class="btn btn-primary mx-2">Update</a>
+                                <a asp-controller="Books" asp-action="DeleteBook" asp-route-Id="@book.Id" class="btn btn-danger mx-2">Delete</a>
+                            </div>
+                        </td>
+                    }  
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,69 @@
+﻿@model StudentLibraryManagement.Models.Books
+
+<h2>Add a new Book</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <form id="updatebook" method="post" asp-action="PostUpdateBook" asp-controller="Books">
+                <input asp-for="@Model.Id" hidden />
+                <h4>Add the details of the newly book.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row mt-3">
+                    <label class="col-md-2" asp-for="Title"></label>
+                    <div class=" col-md-10">
+                        <input type="text" asp-for="Title" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label class="col-md-2" asp-for="Author"></label>
+                    <div class=" col-md-10">
+                        <input type="text" asp-for="Author" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label class="col-md-2" asp-for="CategoryId"></label>
+                    <div class=" col-md-10">
+                        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryDropDown" class="form-control">
+                            <option selected>--Select Book Category --</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label class="col-md-2" asp-for="Shelf"></label>
+                    <div class=" col-md-10">
+                        <input type="text" asp-for="Shelf" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label class="col-md-2" asp-for="StudentId"></label>
+                    <div class=" col-md-10">
+                        <select asp-for="StudentId" asp-items="@ViewBag.TypeDropDown" class="form-control">
+                            <option selected>--Select Borrower Student --</option>
+                        </select>
+                        <span asp-validation-for="StudentId" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group mt-3">
+                    <div class="col-md-10 offset-md-2">
+                        <input type="submit" value="Update Book" class="btn btn-success" />
+                    </div>
+                </div>
+                <div>
+                    <p class="col-md-10 offset-md-2">
+                        <a asp-action="Index">Cancel</a>
+                    </p>
+                </div>
+
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}
